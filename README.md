@@ -1,2 +1,2 @@
 # PWMeasure_BNL
-A library for AVR to measurement pulse width
+A library for AVR to measure pulse width
