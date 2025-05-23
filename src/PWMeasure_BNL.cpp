@@ -1,24 +1,24 @@
-#include "PWMeasurement_BNL.h"
+#include "PWMeasure_BNL.h"
 #include <PinChangeInterrupt.h>
 
-PWMeasurement_BNL::PWMeasurement_BNL(int pin) : inputPin(pin) {
+PWMeasure_BNL::PWMeasure_BNL(int pin) : inputPin(pin) {
     pinMode(inputPin, INPUT);
     attachPCINT(digitalPinToPCINT(inputPin), PCISR, CHANGE);
 }
 
-int PWMeasurement_BNL::getHigh() {
+int PWMeasure_BNL::getHigh() {
     return PWHigh;
 }
 
-int PWMeasurement_BNL::getLow() {
+int PWMeasure_BNL::getLow() {
     return PWLow;
 }
 
-int PWMeasurement_BNL::getPulseWidth() {
+int PWMeasure_BNL::getPulseWidth() {
     return PW;
 }
 
-void PWMeasurement_BNL::PCISR() {
+void PWMeasure_BNL::PCISR() {
     whenStart = micros();
     measure = whenStart - whenEnd;
     if (digitalRead(inputPin) == HIGH) {
@@ -27,5 +27,5 @@ void PWMeasurement_BNL::PCISR() {
         PWLow = measure;
     }
     PW = PWHigh + PWLow;
-    whenEnd = whenStart
+    whenEnd = whenStart;
 }

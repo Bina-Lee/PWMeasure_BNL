@@ -1,14 +1,15 @@
-#ifndef PWMEASUREMENT_BNL_H
-#define PWMEASUREMENT_BNL_H
+#ifndef PWMEASURE_BNL_H
+#define PWMEASURE_BNL_H
 
 #include <Arduino.h>
 
-class PWMeasurement_BNL{
+class PWMeasure_BNL{
     public:
         PWMeasurement_BNL(int pin);
         int getHigh();
         int getLow();
         int getPulseWidth();
+
     private:
         const int inputPin;
         int PWHigh = 0;
