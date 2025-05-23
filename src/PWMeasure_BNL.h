@@ -5,7 +5,7 @@
 
 class PWMeasure_BNL{
     public:
-        PWMeasurement_BNL(int pin);
+        PWMeasure_BNL(int pin);
         int getHigh();
         int getLow();
         int getPulseWidth();
@@ -20,7 +20,9 @@ class PWMeasure_BNL{
         unsigned long whenEnd = 0;
         unsigned long measure = 0;
 
-        void PCISR();
+        void handleInterrupt();
+        static void PCISR();
+        static PWMeasure_BNL* instance;
 };
 
 #endif
