@@ -1,12 +1,21 @@
 #include "PWMeasure_BNL.h"
 #include <PinChangeInterrupt.h>
 
-PWMeasure_BNL* PWMeasure_BNL::instance = nullptr;
+int PWMeasure_BNL::count = 0;
 
-PWMeasure_BNL::PWMeasure_BNL(int pin) : inputPin(pin) {
+PWMeasure_BNL::PWMeasure_BNL(int pin)
+     : inputPin(pin),
+       idx(count) {
+    instance[idx] = this;
+    count++;
+
     pinMode(inputPin, INPUT);
-    instance = this;
-    attachPCINT(digitalPinToPCINT(inputPin), PCISR, CHANGE);
+}
+
+void PWMeasure_BNL::begin() {
+    for (int i = 0; i < count; i++) {
+        attachPinChangeInterrupt(instance[i]->inputPin, PCISR, CHANGE);
+    }
 }
 
 int PWMeasure_BNL::getHigh() {

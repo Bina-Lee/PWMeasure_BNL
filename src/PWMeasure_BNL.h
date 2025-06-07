@@ -3,9 +3,13 @@
 
 #include <Arduino.h>
 
+#define MAX_INSTANCES 24
+
 class PWMeasure_BNL{
     public:
         PWMeasure_BNL(int pin);
+        static void begin();
+
         int getHigh();
         int getLow();
         int getPulseWidth();
@@ -22,7 +26,10 @@ class PWMeasure_BNL{
 
         void handleInterrupt();
         static void PCISR();
-        static PWMeasure_BNL* instance;
+        static PWMeasure_BNL* instance[MAX_INSTANCES];
+
+        static int count;
+        const int idx;
 };
 
 #endif
